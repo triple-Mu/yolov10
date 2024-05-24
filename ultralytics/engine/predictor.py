@@ -46,6 +46,7 @@ from ultralytics.utils import DEFAULT_CFG, LOGGER, MACOS, WINDOWS, callbacks, co
 from ultralytics.utils.checks import check_imgsz, check_imshow
 from ultralytics.utils.files import increment_path
 from ultralytics.utils.torch_utils import select_device, smart_inference_mode
+from ultralytics.nn.modules.head import v10Detect
 
 STREAM_WARNING = """
 WARNING ⚠️ inference results will accumulate in RAM unless `stream=True` is passed, causing potential out-of-memory
@@ -252,7 +253,24 @@ class BasePredictor:
 
                 # Postprocess
                 with profilers[2]:
-                    self.results = self.postprocess(preds, im, im0s)
+                    if isinstance(self.model.model.model[-1], v10Detect):
+                        _nms = ops.non_max_suppression
+                        ops.non_max_suppression = lambda pred, *args, **kwargs: pred
+                        one2one = preds['one2one'][0]
+                        max_det = max(self.model.model.model[-1].max_det, 300)
+                        boxes, scores, labels = ops.v10postprocess(one2one.permute(0, 2, 1), max_det)
+                        preds = []
+                        for box, score, label in zip(boxes, scores, labels):
+                            idx = score > self.args.conf
+                            box = ops.xywh2xyxy(box[idx])
+                            score = score[idx]
+                            label = label[idx]
+                            pred = torch.cat([box, score.unsqueeze(-1), label.unsqueeze(-1)], dim=-1)
+                            preds.append(pred)
+                        self.results = self.postprocess(preds, im, im0s)
+                        ops.non_max_suppression = _nms
+                    else:
+                        self.results = self.postprocess(preds, im, im0s)
                 self.run_callbacks("on_predict_postprocess_end")
 
                 # Visualize, save, write results

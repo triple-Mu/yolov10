@@ -509,6 +509,9 @@ class v10Detect(Detect):
         self.one2one_cv3 = copy.deepcopy(self.cv3)
     
     def forward(self, x):
+        if self.export:
+            return self.forward_export(x)
+
         one2one = self.forward_feat([xi.detach() for xi in x], self.one2one_cv2, self.one2one_cv3)
         if not self.export:
             one2many = super().forward(x)
@@ -523,6 +526,16 @@ class v10Detect(Detect):
                 return torch.cat([boxes, scores.unsqueeze(-1), labels.unsqueeze(-1)], dim=-1)
         else:
             return {"one2many": one2many, "one2one": one2one}
+
+    def forward_export(self, x):
+        results = []
+        for i in range(self.nl):
+            dfl = self.one2one_cv2[i](x[i]).permute(0, 2, 3, 1).contiguous()
+            cls = self.one2one_cv3[i](x[i]).permute(0, 2, 3, 1).contiguous()
+            cls = cls.sigmoid()
+            results.append(torch.cat((cls, dfl), -1))
+        return tuple(results)
+
 
     def bias_init(self):
         super().bias_init()
