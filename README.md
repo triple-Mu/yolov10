@@ -21,7 +21,9 @@ Over the past years, YOLOs have emerged as the predominant paradigm in the field
 </details>
 
 **UPDATES** 🔥
+- 2024/05/27: We have updated the [checkpoints](https://github.com/THU-MIG/yolov10/releases/tag/v1.1) with other attributes, like class names, for ease of use.
 - 2024/05/26: Thanks to [CVHub520](https://github.com/CVHub520) for the integration into [X-AnyLabeling](https://github.com/CVHub520/X-AnyLabeling)!
+- 2024/05/26: Thanks to [DanielSarmiento04](https://github.com/DanielSarmiento04) for integrate in [c++ | ONNX | OPENCV](https://github.com/DanielSarmiento04/yolov10cpp)
 - 2024/05/25: Add [Transformers.js demo](https://huggingface.co/spaces/Xenova/yolov10-web) and onnx weights(yolov10[n](https://huggingface.co/onnx-community/yolov10n)/[s](https://huggingface.co/onnx-community/yolov10s)/[m](https://huggingface.co/onnx-community/yolov10m)/[b](https://huggingface.co/onnx-community/yolov10b)/[l](https://huggingface.co/onnx-community/yolov10l)/[x](https://huggingface.co/onnx-community/yolov10x)). Thanks to [xenova](https://github.com/xenova)!
 - 2024/05/25: Add [colab demo](https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov10-object-detection-on-custom-dataset.ipynb#scrollTo=SaKTSzSWnG7s), [HuggingFace Demo](https://huggingface.co/spaces/kadirnar/Yolov10), and [HuggingFace Model Page](https://huggingface.co/kadirnar/Yolov10). Thanks to [SkalskiP](https://github.com/SkalskiP) and [kadirnar](https://github.com/kadirnar)! 
 
@@ -29,12 +31,12 @@ Over the past years, YOLOs have emerged as the predominant paradigm in the field
 COCO
 | Model | Test Size | #Params | FLOPs | AP<sup>val</sup> | Latency |
 |:---------------|:----:|:---:|:--:|:--:|:--:|
-| [YOLOv10-N](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10n.pt) |   640  |     2.3M    |   6.7G   |     38.5%     | 1.84ms |
-| [YOLOv10-S](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10s.pt) |   640  |     7.2M    |   21.6G  |     46.3%     | 2.49ms |
-| [YOLOv10-M](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10m.pt) |   640  |     15.4M   |   59.1G  |     51.1%     | 4.74ms |
-| [YOLOv10-B](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10b.pt) |   640  |     19.1M   |  92.0G |     52.5%     | 5.74ms |
-| [YOLOv10-L](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10l.pt) |   640  |     24.4M   |  120.3G   |     53.2%     | 7.28ms |
-| [YOLOv10-X](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10x.pt) |   640  |     29.5M    |   160.4G   |     54.4%     | 10.70ms |
+| [YOLOv10-N](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10n.pt) |   640  |     2.3M    |   6.7G   |     38.5%     | 1.84ms |
+| [YOLOv10-S](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10s.pt) |   640  |     7.2M    |   21.6G  |     46.3%     | 2.49ms |
+| [YOLOv10-M](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10m.pt) |   640  |     15.4M   |   59.1G  |     51.1%     | 4.74ms |
+| [YOLOv10-B](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10b.pt) |   640  |     19.1M   |  92.0G |     52.5%     | 5.74ms |
+| [YOLOv10-L](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10l.pt) |   640  |     24.4M   |  120.3G   |     53.2%     | 7.28ms |
+| [YOLOv10-X](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10x.pt) |   640  |     29.5M    |   160.4G   |     54.4%     | 10.70ms |
 
 ## Installation
 `conda` virtual environment is recommended. 
@@ -46,7 +48,7 @@ pip install -e .
 ```
 
 ## Validation
-[`yolov10n.pt`](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10n.pt)  [`yolov10s.pt`](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10s.pt)  [`yolov10m.pt`](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10m.pt)  [`yolov10b.pt`](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10b.pt)  [`yolov10l.pt`](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10l.pt)  [`yolov10x.pt`](https://github.com/jameslahm/yolov10/releases/download/v1.0/yolov10x.pt)  
+[`yolov10n.pt`](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10n.pt)  [`yolov10s.pt`](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10s.pt)  [`yolov10m.pt`](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10m.pt)  [`yolov10b.pt`](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10b.pt)  [`yolov10l.pt`](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10l.pt)  [`yolov10x.pt`](https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10x.pt)  
 ```
 yolo val model=yolov10n/s/m/b/l/x.pt data=coco.yaml batch=256
 ```
